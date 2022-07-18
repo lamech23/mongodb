@@ -1,6 +1,4 @@
 
-
-
 const express = require ('express')
 const{getDb,connectToDb } = require('./db')
 const app =express()
@@ -9,15 +7,18 @@ const app =express()
 
 let db
 
-connectToDb((err) => {
-    if(!err) {
-        app.listen(3000,()=>{
-            console.log('listening to port 3000')
-        })
-        db = getDb()
-    }
-
+app.use('/',()=>{
+    connectToDb((err) => {
+        if(!err) {
+            app.listen(3000,()=>{
+                console.log('listening to port 3000')
+            })
+            db = getDb()
+        }
+    
+    })
 })
+
 
 
 app.get('/books',(req,res)=>{
